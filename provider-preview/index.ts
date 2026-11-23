@@ -71,3 +71,55 @@ export const targets = {
   BROWSER_EXTENSION: "browser-extension",
   BROWSER: "browser",
 } as const;
+
+/**
+ * Minimal language-label conversion used by the subtitle UI.
+ * This is local formatting support only, not a streaming provider.
+ */
+const languageCodes: Record<string, string> = {
+  arabic: "ar",
+  chinese: "zh",
+  czech: "cs",
+  danish: "da",
+  dutch: "nl",
+  english: "en",
+  finnish: "fi",
+  french: "fr",
+  german: "de",
+  greek: "el",
+  hebrew: "he",
+  hindi: "hi",
+  hungarian: "hu",
+  indonesian: "id",
+  italian: "it",
+  japanese: "ja",
+  korean: "ko",
+  norwegian: "no",
+  polish: "pl",
+  portuguese: "pt",
+  romanian: "ro",
+  russian: "ru",
+  spanish: "es",
+  swedish: "sv",
+  thai: "th",
+  turkish: "tr",
+  ukrainian: "uk",
+  vietnamese: "vi",
+};
+
+export function labelToLanguageCode(label: string): string | undefined {
+  const normalized = label.trim().toLowerCase().replace(/\\s*\\([^)]*\\)$/, "");
+  if (/^[a-z]{2,3}(-[a-z]{2})?$/i.test(normalized)) {
+    return normalized.slice(0, 2).toLowerCase();
+  }
+  return languageCodes[normalized];
+}
+
+export const Qualities = {
+  UNKNOWN: "unknown",
+  P360: "360",
+  P480: "480",
+  P720: "720",
+  P1080: "1080",
+  P4K: "4k",
+} as const;
